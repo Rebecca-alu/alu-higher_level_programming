@@ -1,10 +1,15 @@
 #!/usr/bin/python3
-"""Fetches https://alu-intranet.hbtn.io/status and displays the body"""
+"""Fetch https://intranet.hbtn.io/status using the urllib package.
+
+This module fetches the status endpoint and displays the raw body
+of the response along with its type and its utf-8 decoded content.
+"""
 import urllib.request
 
 
 if __name__ == "__main__":
-    with urllib.request.urlopen("https://alu-intranet.hbtn.io/status") as response:
+    url = "https://intranet.hbtn.io/status"
+    with urllib.request.urlopen(url) as response:
         body = response.read()
         print("Body response:")
         print("\t- type: {}".format(type(body)))
