@@ -4,7 +4,7 @@
 This module fetches the status endpoint and displays the raw body
 of the response along with its type and its utf-8 decoded content.
 """
-import urllib.request
+import requests
 
 
 if __name__ == "__main__":
