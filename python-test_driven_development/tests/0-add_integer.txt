@@ -53,3 +53,15 @@ Both floats:
 
     >>> add_integer(1.5, 2.5)
     3
+
+Float overflow (infinity can't be cast to an integer):
+
+    >>> add_integer(float('inf'), 1)
+    Traceback (most recent call last):
+    OverflowError: cannot convert float infinity to integer
+
+Cannot convert float NaN to integer:
+
+    >>> add_integer(float('nan'), 1)
+    Traceback (most recent call last):
+    ValueError: cannot convert float NaN to integer

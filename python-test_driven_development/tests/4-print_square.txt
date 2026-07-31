@@ -1,64 +1,37 @@
-The ``4-print_square`` module
-================================
+>>> print_square = __import__('4-print_square').print_square
 
-Using ``print_square``
-------------------------
+>>> print_square(1)
+#
+>>> print_square(2)
+##
+##
+>>> print_square(3)
+###
+###
+###
+>>> print_square(0)
 
-Import the function:
-
-    >>> print_square = __import__('4-print_square').print_square
-
-A square of size 4:
-
-    >>> print_square(4)
-    ####
-    ####
-    ####
-    ####
-
-A square of size 10:
-
-    >>> print_square(10)
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-
-A square of size 0 prints nothing:
-
-    >>> print_square(0)
-
-A square of size 1:
-
-    >>> print_square(1)
-    #
-
-A negative size raises ValueError:
-
-    >>> print_square(-1)
-    Traceback (most recent call last):
-    ValueError: size must be >= 0
-
-A non-integer size raises TypeError:
-
-    >>> print_square("4")
-    Traceback (most recent call last):
-    TypeError: size must be an integer
-
-A negative float raises TypeError:
-
-    >>> print_square(-1.5)
-    Traceback (most recent call last):
-    TypeError: size must be an integer
-
-A positive float raises TypeError:
-
-    >>> print_square(3.5)
-    Traceback (most recent call last):
-    TypeError: size must be an integer
+>>> print_square(-1)
+Traceback (most recent call last):
+ValueError: size must be >= 0
+>>> print_square("a")
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> print_square(1.5)
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> print_square(-1.5)
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> print_square(True)
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> print_square(None)
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> print_square([1, 2])
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> print_square()
+Traceback (most recent call last):
+TypeError: print_square() missing 1 required positional argument: 'size'
