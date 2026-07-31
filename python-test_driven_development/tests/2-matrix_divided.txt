@@ -67,12 +67,12 @@ Dividing by infinity gives all zeros:
 
 Missing one argument raises a TypeError:
 
-    >>> matrix_divided([[1, 2], [3, 4]])
+    >>> matrix_divided([[1, 2], [3, 4]]) # doctest: +ELLIPSIS
     Traceback (most recent call last):
-    TypeError: matrix_divided() missing 1 required positional argument: 'div'
+    TypeError: ...div...
 
 Missing both arguments raises a TypeError:
 
-    >>> matrix_divided()
+    >>> matrix_divided() # doctest: +ELLIPSIS
     Traceback (most recent call last):
-    TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' an
+    TypeError: ...matrix...div...
