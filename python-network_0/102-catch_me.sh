@@ -1,3 +1,3 @@
 #!/bin/bash
-# Makes a request to 0.0.0.0:5000/catch_me and displays "You got me!"
-curl -s -L "0.0.0.0:5000/catch_me"
+# Send a spoofed request that tricks the server into believing user_id is 98
+curl -s -L -X PUT -d "user_id=98" -H "Origin: HolbertonSchool" "0.0.0.0:5000/catch_me"
