@@ -2,6 +2,8 @@
 """Unittests for models.rectangle.Rectangle"""
 import unittest
 import os
+import io
+import contextlib
 from models.rectangle import Rectangle
 
 
@@ -85,15 +87,24 @@ class TestRectangle(unittest.TestCase):
 
     def test_display_without_x_and_y(self):
         r = Rectangle(2, 2)
-        r.display()
+        capture = io.StringIO()
+        with contextlib.redirect_stdout(capture):
+            r.display()
+        self.assertEqual(capture.getvalue(), "##\n##\n")
 
     def test_display_without_y(self):
         r = Rectangle(2, 2, 1)
-        r.display()
+        capture = io.StringIO()
+        with contextlib.redirect_stdout(capture):
+            r.display()
+        self.assertEqual(capture.getvalue(), " ##\n ##\n")
 
     def test_display(self):
         r = Rectangle(2, 2, 1, 1)
-        r.display()
+        capture = io.StringIO()
+        with contextlib.redirect_stdout(capture):
+            r.display()
+        self.assertEqual(capture.getvalue(), "\n ##\n ##\n")
 
     def test_update_args(self):
         r = Rectangle(10, 10, 10, 10)
