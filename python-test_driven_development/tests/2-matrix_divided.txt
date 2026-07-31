@@ -59,3 +59,20 @@ Works with floats too:
 
     >>> matrix_divided([[1.5, 2.5], [3.5, 4.5]], 2)
     [[0.75, 1.25], [1.75, 2.25]]
+
+Dividing by infinity gives all zeros:
+
+    >>> matrix_divided([[1, 2], [3, 4]], float('inf'))
+    [[0.0, 0.0], [0.0, 0.0]]
+
+Missing one argument raises a TypeError:
+
+    >>> matrix_divided([[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    TypeError: matrix_divided() missing 1 required positional argument: 'div'
+
+Missing both arguments raises a TypeError:
+
+    >>> matrix_divided()
+    Traceback (most recent call last):
+    TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' an
