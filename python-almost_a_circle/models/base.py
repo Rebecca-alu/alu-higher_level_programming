@@ -1,19 +1,18 @@
 #!/usr/bin/python3
-"""Defines the Base class."""
+"""Defines the Base class"""
 import json
 import csv
 
 
 class Base:
-    """Base class that manages the id attribute for all other classes."""
-
+    """Represent the base of all other classes in this project"""
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """Initialize a new Base instance.
+        """Initialize a new Base
 
         Args:
-            id (int): the identity of the new instance.
+            id (int): The identity of the new instance
         """
         if id is not None:
             self.id = id
@@ -23,10 +22,10 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        """Return the JSON string representation of a list of dicts.
+        """Return the JSON string representation of list_dictionaries
 
         Args:
-            list_dictionaries (list): a list of dictionaries.
+            list_dictionaries (list): A list of dictionaries
         """
         if list_dictionaries is None or len(list_dictionaries) == 0:
             return "[]"
@@ -34,25 +33,24 @@ class Base:
 
     @classmethod
     def save_to_file(cls, list_objs):
-        """Write the JSON string representation of list_objs to a file.
+        """Write the JSON string representation of list_objs to a file
 
         Args:
-            list_objs (list): a list of instances that inherit from Base.
+            list_objs (list): A list of instances who inherit of Base
         """
         filename = "{}.json".format(cls.__name__)
         if list_objs is None:
             list_objs = []
-
         list_dicts = [obj.to_dictionary() for obj in list_objs]
         with open(filename, "w") as f:
             f.write(cls.to_json_string(list_dicts))
 
     @staticmethod
     def from_json_string(json_string):
-        """Return the list represented by a JSON string.
+        """Return the list represented by json_string
 
         Args:
-            json_string (str): a JSON string representing a list of dicts.
+            json_string (str): A string representing a list of dicts
         """
         if json_string is None or len(json_string) == 0:
             return []
@@ -60,10 +58,10 @@ class Base:
 
     @classmethod
     def create(cls, **dictionary):
-        """Return an instance with all attributes already set.
+        """Return an instance with all attributes already set
 
         Args:
-            dictionary (dict): key/value pairs of attributes to set.
+            dictionary (dict): Key/value pairs of attributes to set
         """
         if cls.__name__ == "Rectangle":
             dummy = cls(1, 1)
@@ -74,22 +72,21 @@ class Base:
 
     @classmethod
     def load_from_file(cls):
-        """Return a list of instances loaded from <Class name>.json."""
+        """Return a list of instances loaded from <Class name>.json"""
         filename = "{}.json".format(cls.__name__)
         try:
             with open(filename, "r") as f:
                 list_dicts = cls.from_json_string(f.read())
-        except FileNotFoundError:
+                return [cls.create(**d) for d in list_dicts]
+        except IOError:
             return []
-
-        return [cls.create(**d) for d in list_dicts]
 
     @classmethod
     def save_to_file_csv(cls, list_objs):
-        """Write the CSV string representation of list_objs to a file.
+        """Write the CSV representation of list_objs to a file
 
         Args:
-            list_objs (list): a list of instances that inherit from Base.
+            list_objs (list): A list of instances who inherit of Base
         """
         filename = "{}.csv".format(cls.__name__)
         if list_objs is None:
@@ -99,38 +96,25 @@ class Base:
             for obj in list_objs:
                 if cls.__name__ == "Rectangle":
                     writer.writerow(
-                        [obj.id, obj.width, obj.height, obj.x, obj.y]
-                    )
+                        [obj.id, obj.width, obj.height, obj.x, obj.y])
                 else:
-                    writer.writerow(
-                        [obj.id, obj.size, obj.x, obj.y]
-                    )
+                    writer.writerow([obj.id, obj.size, obj.x, obj.y])
 
     @classmethod
     def load_from_file_csv(cls):
-        """Return a list of instances loaded from <Class name>.csv."""
+        """Return a list of instances loaded from <Class name>.csv"""
         filename = "{}.csv".format(cls.__name__)
         try:
             with open(filename, "r", newline="") as f:
                 reader = csv.reader(f)
-                instances = []
-                for row in reader:
-                    if cls.__name__ == "Rectangle":
-                        d = {
-                            "id": int(row[0]),
-                            "width": int(row[1]),
-                            "height": int(row[2]),
-                            "x": int(row[3]),
-                            "y": int(row[4])
-                        }
-                    else:
-                        d = {
-                            "id": int(row[0]),
-                            "size": int(row[1]),
-                            "x": int(row[2]),
-                            "y": int(row[3])
-                        }
-                    instances.append(cls.create(**d))
-            return instances
-        except FileNotFoundError:
+                if cls.__name__ == "Rectangle":
+                    keys = ["id", "width", "height", "x", "y"]
+                else:
+                    keys = ["id", "size", "x", "y"]
+                list_dicts = [
+                    {k: int(v) for k, v in zip(keys, row)}
+                    for row in reader if row
+                ]
+                return [cls.create(**d) for d in list_dicts]
+        except IOError:
             return []
