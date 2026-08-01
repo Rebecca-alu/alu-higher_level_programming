@@ -1,0 +1,58 @@
+The ``1-my_list`` module
+===========================
+
+Using ``MyList``
+-------------------
+
+Import the class:
+
+    >>> MyList = __import__('1-my_list').MyList
+
+Class creation, multiple appends, regular print and sorted print:
+
+    >>> my_list = MyList()
+    >>> my_list.append(1)
+    >>> my_list.append(4)
+    >>> my_list.append(2)
+    >>> my_list.append(3)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+Class creation, regular print and sorted print (empty list):
+
+    >>> my_list = MyList()
+    >>> print(my_list)
+    []
+    >>> my_list.print_sorted()
+    []
+
+Class creation, multiple appends (negative number), regular print and sorted print:
+
+    >>> my_list = MyList()
+    >>> my_list.append(3)
+    >>> my_list.append(-1)
+    >>> my_list.append(0)
+    >>> print(my_list)
+    [3, -1, 0]
+    >>> my_list.print_sorted()
+    [-1, 0, 3]
+    >>> print(my_list)
+    [3, -1, 0]
+
+MyList is a subclass of list:
+
+    >>> isinstance(MyList(), list)
+    True
+
+print_sorted does not modify the original list:
+
+    >>> my_list = MyList([5, 3, 1, 4, 2])
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> my_list
+    [5, 3, 1, 4, 2]
